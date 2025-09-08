@@ -1,24 +1,59 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import  Home  from "./pages/Home";
+import  LogIn  from "./pages/LogIn";
+import NotFound from "./pages/NotFound";
+import UserDashboard from './pages/user/UserDashboard'
+import UserRoute from './components/UserRoute'
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+import { ProSidebarProvider } from 'react-pro-sidebar';
+import { theme } from "./theme"
+import Layout from './pages/global/Layout'
+import UserJobsHistory from './pages/user/UserJobsHistory';
+import UserInfoDashboard from './pages/user/UserInfoDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminRoute from './components/AdminRoute';
+import SingleJob from './pages/SingleJob';
+import DashUsers from './pages/admin/DashUser'
+import DashJobs from './pages/admin/DashJobs'
+
+//Higher Order Componnt
+const UserDashboardHOC = Layout(UserDashboard)
+const UserJobsHistoryHOC = Layout(UserJobsHistory)
+const UserInfoDashboardHOC = Layout(UserInfoDashboard)
+const AdminDashboardHOC = Layout(AdminDashboard)
+const DashUsersHOC = Layout(DashUsers)
+const DashJobsHOC = Layout(DashJobs)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <ToastContainer />
+     <ThemeProvider theme={theme} >
+       <CssBaseline />
+      <ProSidebarProvider> 
+       <BrowserRouter>
+       <Routes>
+         <Route path="/" element = {<Home />} />
+         <Route path="/search/location/:location" element = {<Home />} />
+         <Route path="/search/:keyword" element = {<Home />} />
+         <Route path="/login" element = {<LogIn />} />
+         <Route path="/job/:id" element = {<SingleJob />} />
+         <Route path="/admin/dashboard" element = {<AdminRoute> <AdminDashboardHOC/> </AdminRoute>} />
+         <Route path="/admin/users" element = {<AdminRoute> <DashUsersHOC/> </AdminRoute>} />
+         <Route path="/admin/jobs" element = {<AdminRoute> <DashJobsHOC/> </AdminRoute>} />
+         <Route path="/user/dashboard" element = {<UserRoute> <UserDashboardHOC /> </UserRoute> } />
+         <Route path="/user/jobs" element = {<UserRoute> <UserJobsHistoryHOC /> </UserRoute> } />
+         <Route path="/user/info" element = {<UserRoute> <UserInfoDashboardHOC /> </UserRoute> } />
+         <Route path="/*" element = {<NotFound />} />
+       </Routes>
+       </BrowserRouter>
+      </ProSidebarProvider>
+     </ThemeProvider>
+    </>
   );
 }
 
