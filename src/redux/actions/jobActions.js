@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import API from "../../utils/axiosConfig";
 import {  JOB_LOAD_FAIL, JOB_LOAD_REQUEST, JOB_LOAD_SUCCESS,  } from "../constants/jobConstants";
 import { JOB_LOAD_SINGLE_FAIL, JOB_LOAD_SINGLE_REQUEST, JOB_LOAD_SINGLE_SUCCESS } from "../constants/jobConstants";
 
@@ -7,7 +7,7 @@ import { JOB_LOAD_SINGLE_FAIL, JOB_LOAD_SINGLE_REQUEST, JOB_LOAD_SINGLE_SUCCESS 
 export const jobLoadAction = (pageNumber, keyword ='', cat ='', location ='') =>async(dispatch) =>{
      dispatch({type: JOB_LOAD_REQUEST });
      try {
-        const { data } = await axios.get(
+        const { data } = await API.get(
             `/api/jobs/show?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}`,
             {
               headers: {
@@ -32,7 +32,7 @@ export const jobLoadAction = (pageNumber, keyword ='', cat ='', location ='') =>
 export const jobLoadSingleAction = (id) =>async(dispatch) =>{
   dispatch({type: JOB_LOAD_SINGLE_REQUEST });
   try {
-     const { data } = await axios.get(
+     const { data } = await API.get(
          `/api/job/${id}`,
          {
            headers: {

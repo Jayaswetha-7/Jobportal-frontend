@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import API from "../../utils/axiosConfig";
 import { toast } from "react-toastify";
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL } from "../constants/userConstants";
 import { USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS,USER_LOGOUT_FAIL } from '../constants/userConstants'
@@ -10,7 +10,7 @@ import { ALL_USER_LOAD_REQUEST, ALL_USER_LOAD_SUCCESS, ALL_USER_LOAD_FAIL } from
 export const userSignInAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST });
   try {
-      const { data } = await axios.post("/api/signin", user);
+      const { data } = await API.post("/api/signin", user);
       localStorage.setItem('userInfo', JSON.stringify(data));
       dispatch({
           type: USER_SIGNIN_SUCCESS,
@@ -30,7 +30,7 @@ export const userSignInAction = (user) => async (dispatch) => {
 export const userLogoutAction = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT_REQUEST });
   try {
-      const { data } = await axios.get("/api/logout");
+      const { data } = await API.get("/api/logout");
       localStorage.removeItem('userInfo');
       dispatch({
           type: USER_LOGOUT_SUCCESS,
@@ -51,7 +51,7 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
     dispatch({ type: USER_LOAD_REQUEST });
     try {
-        const { data } = await axios.get("/api/me");
+        const { data } = await API.get("/api/me");
       
         dispatch({
             type: USER_LOAD_SUCCESS,
@@ -80,7 +80,7 @@ export const userProfileAction = () => async (dispatch) => {
         },
       };
   
-      const { data } = await axios.post("/api/users/jobhistory", job, config);
+      const { data } = await API.post("/api/users/jobhistory", job, config);
   
       dispatch({
         type: USER_APPLY_JOB_SUCCESS,
@@ -108,7 +108,7 @@ export const userProfileAction = () => async (dispatch) => {
 export const allUserAction = () => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
-      const { data } = await axios.get("/api/allusers");
+      const { data } = await API.get("/api/allusers");
       dispatch({
           type: ALL_USER_LOAD_SUCCESS,
           payload: data

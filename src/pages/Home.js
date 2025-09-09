@@ -68,11 +68,11 @@ const Home = () => {
                                     <MenuList>
                                         {
                                             setUniqueLocation && setUniqueLocation.map((location, i) => (
-                                                <MenuItem key={i}>
-                                                    <ListItemIcon>
-                                                        <LocationOnIcon sx={{ color: palette.secondary.main, fontSize: 18 }} />
-                                                    </ListItemIcon>
-                                                    <Link to={`/search/location/${location}`}>{location}</Link>
+                                                <MenuItem key={i} sx={{ "& a": { textDecoration: "none !important", color: "black" } }}>
+                                                     <ListItemIcon>
+                                                         <LocationOnIcon sx={{ color: palette.secondary.main, fontSize: 18 }} />
+                                                     </ListItemIcon>
+                                                     <Link to={`/search/location/${location}`}>{location}</Link>
                                                 </MenuItem>
 
                                             ))
