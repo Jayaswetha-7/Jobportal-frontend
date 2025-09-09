@@ -50,7 +50,7 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
   dispatch({ type: USER_LOAD_REQUEST });
   try {
-      const { data } = await axios.get("/api/me");
+      const { data } = await API.get("/api/me");
       dispatch({
           type: USER_LOAD_SUCCESS,
           payload: data
@@ -107,7 +107,7 @@ export const userProfileAction = () => async (dispatch) => {
 export const allUserAction = () => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
-      const { data } = await axios.get("/api/allusers");
+      const { data } = await API.get("/api/allusers");
       dispatch({
           type: ALL_USER_LOAD_SUCCESS,
           payload: data
