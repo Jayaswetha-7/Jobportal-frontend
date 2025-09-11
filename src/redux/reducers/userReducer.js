@@ -1,5 +1,6 @@
 
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS,USER_SIGNIN_FAIL,USER_SIGNIN_RESET } from '../constants/userConstants'
+import { USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS,USER_SIGNUP_FAIL,USER_SIGNUP_RESET } from '../constants/userConstants'
 import { USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS,USER_LOGOUT_FAIL,USER_LOGOUT_RESET } from '../constants/userConstants'
 import { USER_LOAD_REQUEST, USER_LOAD_SUCCESS,USER_LOAD_FAIL,USER_LOAD_RESET } from '../constants/userConstants'
 import { USER_APPLY_JOB_REQUEST, USER_APPLY_JOB_SUCCESS,USER_APPLY_JOB_FAIL, USER_APPLY_JOB_RESET } from '../constants/userConstants'
@@ -14,11 +15,34 @@ export const userReducerSignIn = (state = {}, action) => {
 
                 loading: false,
                 userInfo: action.payload,
-                isAuthenticated: true
+                isAuthenticated: true,
+                
             }
         case USER_SIGNIN_FAIL:
             return { loading: false, userInfo: null, isAuthenticated: false, error: action.payload }
         case USER_SIGNIN_RESET:
+            return {}
+        default:
+            return state;
+    }
+
+}
+
+//signup
+export const userReducerSignUp = (state = {}, action) => {
+    switch (action.type) {
+        case USER_SIGNUP_REQUEST:
+            return { loading: true, userInfo: null, isAuthenticated: false }
+        case USER_SIGNUP_SUCCESS:
+            return {
+
+                loading: false,
+                userInfo: action.payload,
+                isAuthenticated: true
+            }
+        case USER_SIGNUP_FAIL:
+            return { loading: false, userInfo: null, isAuthenticated: false, error: action.payload }
+        case USER_SIGNUP_RESET:
             return {}
         default:
             return state;

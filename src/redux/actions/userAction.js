@@ -2,11 +2,13 @@
 import API from "../../utils/axiosConfig";
 import { toast } from "react-toastify";
 import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL } from "../constants/userConstants";
+import { USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAIL } from "../constants/userConstants";
 import { USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS,USER_LOGOUT_FAIL } from '../constants/userConstants'
 import { USER_LOAD_REQUEST, USER_LOAD_SUCCESS,USER_LOAD_FAIL } from '../constants/userConstants'
 import { USER_APPLY_JOB_REQUEST, USER_APPLY_JOB_SUCCESS,USER_APPLY_JOB_FAIL } from '../constants/userConstants'
 import { ALL_USER_LOAD_REQUEST, ALL_USER_LOAD_SUCCESS, ALL_USER_LOAD_FAIL } from '../constants/userConstants'
 
+//signin
 export const userSignInAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST });
   try {
@@ -20,6 +22,26 @@ export const userSignInAction = (user) => async (dispatch) => {
   } catch (error) {
       dispatch({
           type: USER_SIGNIN_FAIL,
+          payload: error.response.data.error
+      });
+      toast.error(error.response.data.error);
+  }
+}
+
+//signup
+export const userSignUpAction = (user) => async (dispatch) => {
+  dispatch({ type: USER_SIGNUP_REQUEST });
+  try {
+      const { data } = await API.post("/api/signup", user);
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      dispatch({
+          type: USER_SIGNUP_SUCCESS,
+          payload: data
+      });
+      toast.success("SignUp Successfully!");
+  } catch (error) {
+      dispatch({
+          type: USER_SIGNUP_FAIL,
           payload: error.response.data.error
       });
       toast.error(error.response.data.error);

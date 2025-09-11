@@ -23,6 +23,7 @@ const pages = ['Home', 'Log In'];
 const NavBar = () => {
     //show / hide button
     const { userInfo } = useSelector(state => state.signIn);
+    const { userInfos } = useSelector(state => state.signUp);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -184,6 +185,19 @@ const NavBar = () => {
 
                                     <MenuItem onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/login">Log In</Link></Typography>
+                                    </MenuItem> :
+
+                                    <MenuItem onClick={logOutUser}>
+                                        <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
+                                    </MenuItem>
+
+                            }
+
+                            {
+                                !userInfos ?
+
+                                    <MenuItem onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/signup">Sign Up</Link></Typography>
                                     </MenuItem> :
 
                                     <MenuItem onClick={logOutUser}>

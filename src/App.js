@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import  Home  from "./pages/Home";
 import  LogIn  from "./pages/LogIn";
+import  SignUp  from "./pages/SignUp";
 import NotFound from "./pages/NotFound";
 import UserDashboard from './pages/user/UserDashboard'
 import UserRoute from './components/UserRoute'
@@ -41,6 +42,7 @@ function App() {
          <Route path="/search/location/:location" element = {<Home />} />
          <Route path="/search/:keyword" element = {<Home />} />
          <Route path="/login" element = {<LogIn />} />
+         <Route path="/signup" element = {<SignUp />} />
          <Route path="/job/:id" element = {<SingleJob />} />
          <Route path="/admin/dashboard" element = {<AdminRoute> <AdminDashboardHOC/> </AdminRoute>} />
          <Route path="/admin/users" element = {<AdminRoute> <DashUsersHOC/> </AdminRoute>} />
