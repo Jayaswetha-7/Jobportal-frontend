@@ -51,7 +51,7 @@ const Home = () => {
                             <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
                                 <Box sx={{ pb: 2 }}>
                                     <Typography component="h4" sx={{ color: palette.secondary.main, fontWeight: 600 }}>
-                                        Filter job by category
+                                        Filter Job by category
                                     </Typography>
                                 </Box>
                                 <SelectComponent handleChangeCategory={handleChangeCategory} cat={cat} />
