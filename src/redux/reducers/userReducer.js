@@ -16,7 +16,6 @@ export const userReducerSignIn = (state = {}, action) => {
                 loading: false,
                 userInfo: action.payload,
                 isAuthenticated: true,
-                
             }
         case USER_SIGNIN_FAIL:
             return { loading: false, userInfo: null, isAuthenticated: false, error: action.payload }
@@ -27,6 +26,7 @@ export const userReducerSignIn = (state = {}, action) => {
     }
 
 }
+
 
 //signup
 export const userReducerSignUp = (state = {}, action) => {

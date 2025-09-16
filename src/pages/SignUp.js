@@ -31,14 +31,13 @@ const validationSchema = yup.object({
 const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { isAuthenticated, userInfo } = useSelector(state => state.signUp);
     useEffect(() => {
         if (isAuthenticated) {
            if (userInfo.role===1) {
                navigate('/admin/dashboard');
            } else {
-               navigate('/user/dashboard')
+            navigate("/user/dashboard");
            }
         }
     }, [isAuthenticated])

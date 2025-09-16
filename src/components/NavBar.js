@@ -17,13 +17,16 @@ import { useTheme } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../redux/actions/userAction';
 
-const pages = ['Home', 'Log In'];
+const pages = ['Home', 'Log In','SignUp'];
 
 
 const NavBar = () => {
     //show / hide button
-    const { userInfo } = useSelector(state => state.signIn);
-    const { userInfos } = useSelector(state => state.signUp);
+    const { userInfo: signInUser } = useSelector(state => state.signIn);
+    const { userInfo: signUpUser } = useSelector(state => state.signUp);
+
+    const userInfo = signInUser || signUpUser; 
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -181,30 +184,42 @@ const NavBar = () => {
                             </MenuItem>
 
                             {
-                                !userInfo ?
+  !userInfo ? (
+    <>
+      <MenuItem onClick={handleCloseUserMenu}>
+        <Typography textAlign="center">
+          <Link
+            style={{ textDecoration: "none", color: palette.primary.main }}
+            to="/login"
+          >
+            Log In
+          </Link>
+        </Typography>
+      </MenuItem>
 
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/login">Log In</Link></Typography>
-                                    </MenuItem> :
+      <MenuItem onClick={handleCloseUserMenu}>
+        <Typography textAlign="center">
+          <Link
+            style={{ textDecoration: "none", color: palette.primary.main }}
+            to="/signup"
+          >
+            Sign Up
+          </Link>
+        </Typography>
+      </MenuItem>
+    </>
+  ) : (
+    <MenuItem onClick={logOutUser}>
+      <Typography
+        style={{ textDecoration: "none", color: palette.primary.main }}
+        textAlign="center"
+      >
+        Log Out
+      </Typography>
+    </MenuItem>
+  )
+}
 
-                                    <MenuItem onClick={logOutUser}>
-                                        <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
-                                    </MenuItem>
-
-                            }
-
-                            {
-                                !userInfos ?
-
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.primary.main }} to="/signup">Sign Up</Link></Typography>
-                                    </MenuItem> :
-
-                                    <MenuItem onClick={logOutUser}>
-                                        <Typography style={{ textDecoration: "none", color: palette.primary.main }} textAlign="center">Log Out</Typography>
-                                    </MenuItem>
-
-                            }
                         </Menu>
                     </Box>
                 </Toolbar>
