@@ -29,24 +29,27 @@ export const userSignInAction = (user) => async (dispatch) => {
 }
 
 // user sign up action
+// user sign up action
 export const userSignUpAction = (user) => async (dispatch) => {
     dispatch({ type: USER_SIGNUP_REQUEST });
     try {
         const { data } = await API.post("/api/signup", user);
-
+        localStorage.setItem("userInfo", JSON.stringify(data));
         dispatch({
-            type: USER_SIGNUP_SUCCESS,
-            payload: data
+            type: USER_SIGNIN_SUCCESS,
+            payload: data,
         });
-        toast.success("Register Successfully!");
+
+        toast.success("SignUp Successfully!");
     } catch (error) {
         dispatch({
             type: USER_SIGNUP_FAIL,
-            payload: error.response.data.error
+            payload: error.response?.data?.error || error.message,
         });
-        toast.error(error.response.data.error);
+        toast.error(error.response?.data?.error || "Signup failed");
     }
-}
+};
+
 
 //log out action
 export const userLogoutAction = () => async (dispatch) => {
